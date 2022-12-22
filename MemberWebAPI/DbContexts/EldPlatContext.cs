@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using MemberWebAPI.Models;
+using MemberWebAPI.Shared.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 

@@ -1,4 +1,4 @@
-﻿namespace MemberWebAPI.Models
+﻿namespace MemberWebAPI.Shared.Models
 {
     public class TokenSettings
     {

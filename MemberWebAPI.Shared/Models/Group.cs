@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MemberWebAPI.Models
+namespace MemberWebAPI.Shared.Models
 {
     public partial class Group
     {
