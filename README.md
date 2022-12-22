@@ -14,7 +14,7 @@
   ```
 + 安裝JWT套件
   ```
-  Install-Package System.IdentityModel.Tokens.Jwt -version 6.25.1
+  Install-Package Microsoft.AspNetCore.Authentication.JwtBearer -version 6.0.12
   ```
 + 安裝HotChocolate
   ```
