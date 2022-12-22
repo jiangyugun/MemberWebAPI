@@ -14,10 +14,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
 builder.Services
     .AddPooledDbContextFactory<EldPlatContext>(
         options => options.UseSqlServer(builder.Configuration.GetConnectionString("EldPlatContext"))
     );
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 //Token相關設定
 builder.Services.Configure<TokenSettings>(builder.Configuration.GetSection("TokenSettings"));
