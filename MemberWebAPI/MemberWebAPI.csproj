@@ -20,12 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Interface\" />
-    <Folder Include="GraphQL\" />
-    <Folder Include="InputType\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\MemberWebAPI.Shared\MemberWebAPI.Shared.csproj" />
   </ItemGroup>
 

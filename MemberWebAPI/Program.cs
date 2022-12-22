@@ -1,5 +1,8 @@
+using MemberWebAPI.DataAccess;
 using MemberWebAPI.DbContexts;
-using MemberWebAPI.Models;
+using MemberWebAPI.GraphQL;
+using MemberWebAPI.Interface;
+using MemberWebAPI.Shared.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -21,6 +24,8 @@ builder.Services
     );
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddScoped<IAuthLogin, AuthLoginDataAccessLayer>();
+
 
 //Token相關設定
 builder.Services.Configure<TokenSettings>(builder.Configuration.GetSection("TokenSettings"));
@@ -50,6 +55,10 @@ builder.Services.AddAuthorization(options =>
         policy.RequireRole(new string[] { "admin", "super-admin" });
     });
 });
+
+builder.Services.AddGraphQLServer()
+    .AddAuthorization()
+    .AddMutationType<MutationResolver>();
 
 var app = builder.Build();
 
