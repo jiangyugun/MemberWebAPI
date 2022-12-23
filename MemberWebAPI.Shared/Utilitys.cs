@@ -16,7 +16,7 @@ using Group = MemberWebAPI.Shared.Models.Group;
 
 namespace MemberWebAPI.Shared
 {
-    internal class Utility : IUtility
+    public class Utilitys : IUtility
     {
         /// <summary>
         /// 註冊-資料驗證

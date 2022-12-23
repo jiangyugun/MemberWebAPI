@@ -2,6 +2,8 @@ using MemberWebAPI.DataAccess;
 using MemberWebAPI.DbContexts;
 using MemberWebAPI.GraphQL;
 using MemberWebAPI.Interface;
+using MemberWebAPI.Shared;
+using MemberWebAPI.Shared.Interface;
 using MemberWebAPI.Shared.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +27,7 @@ builder.Services
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IAuthLogin, AuthLoginDataAccessLayer>();
+builder.Services.AddScoped<IUtility, Utilitys>();
 
 
 //Token相關設定
@@ -58,6 +61,7 @@ builder.Services.AddAuthorization(options =>
 
 builder.Services.AddGraphQLServer()
     .AddAuthorization()
+    .AddQueryType<QueryResolver>()
     .AddMutationType<MutationResolver>();
 
 var app = builder.Build();
@@ -70,10 +74,14 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseStaticFiles();
+app.UseRouting();
 app.UseAuthorization();
 app.UseAuthentication();
 
-app.MapControllers();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapGraphQL();
+});
 
 app.Run();

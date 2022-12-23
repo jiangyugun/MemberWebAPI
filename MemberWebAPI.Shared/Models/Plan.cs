@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace MemberWebAPI.Shared.Models
 {
     public partial class Plan
     {
         public int No { get; set; }
+        [Key]
         public string PlansNo { get; set; } = null!;
         public string? PlansName { get; set; }
         public string CompanyNo { get; set; } = null!;

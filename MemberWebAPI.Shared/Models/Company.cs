@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace MemberWebAPI.Shared.Models
 {
     public partial class Company
     {
         public int No { get; set; }
+        [Key]
         public string CompanyNo { get; set; } = null!;
         public int InvoiceNo { get; set; }
         public string ComName { get; set; } = null!;

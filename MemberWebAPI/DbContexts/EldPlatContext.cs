@@ -8,8 +8,7 @@ namespace MemberWebAPI.DbContexts
 {
     public partial class EldPlatContext : DbContext
     {
-        public EldPlatContext(DbContextOptions<EldPlatContext> options)
-            : base(options)
+        public EldPlatContext(DbContextOptions<EldPlatContext> options): base(options)
         {
         }
 
@@ -17,7 +16,6 @@ namespace MemberWebAPI.DbContexts
         public virtual DbSet<Company> Companies { get; set; } = null!;
         public virtual DbSet<Group> Groups { get; set; } = null!;
         public virtual DbSet<Plan> Plans { get; set; } = null!;
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

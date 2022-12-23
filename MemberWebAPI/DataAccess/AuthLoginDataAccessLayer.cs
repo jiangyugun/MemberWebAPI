@@ -42,7 +42,7 @@ namespace MemberWebAPI.DataAccess
 
             if (user == null)
             {
-                result.Message = "Invalid Credentials";
+                result.Message = "查無使用者";
                 return result;
             }
 
@@ -52,21 +52,23 @@ namespace MemberWebAPI.DataAccess
                 var totalHours = DateTime.Now.Subtract(user.ErrDate.Value);
                 if (totalHours.TotalHours < 1)
                 {
-                    result.Message = "登入錯誤超過3次，請於一小時後登入";
+                    result.Message = "登入錯誤超過3次,請於一小時後登入";
                     return result;
                 }
                 else
                 {
                     checkHours = false;
                     user.LoginErr = 0;
+                    user.ErrDate = null;
                 }
             }
 
-            if (user.LoginErr >= 2 && checkHours)
+            if (user.LoginErr > 2 && checkHours)
             {
-                result.Message = "登入錯誤超過3次，請於一小時後登入";
+                result.Message = "登入錯誤超過3次,請於一小時後登入";
                 user.ErrDate = DateTime.Now.AddHours(1);
                 _eldPlatContext.Accounts.Update(user);
+                _eldPlatContext.Entry(user).Property(x => x.No).IsModified = false;
                 _eldPlatContext.SaveChanges();
 
                 return result;
@@ -74,9 +76,10 @@ namespace MemberWebAPI.DataAccess
 
             if (!_utility.ValidatePasswordHash(loginInput.Password, user.Password))
             {
-                result.Message = "Invalid Credentials";
                 user.LoginErr += 1;
+                result.Message = "帳號或密碼已經錯誤" + user.LoginErr.ToString() + "次";
                 _eldPlatContext.Accounts.Update(user);
+                _eldPlatContext.Entry(user).Property(x => x.No).IsModified = false;
                 _eldPlatContext.SaveChanges();
 
                 return result;
@@ -92,6 +95,7 @@ namespace MemberWebAPI.DataAccess
             user.Refreshtokenexpiration = DateTime.Now.AddDays(1);
 
             _eldPlatContext.Accounts.Update(user);
+            _eldPlatContext.Entry(user).Property(x => x.No).IsModified = false;
             _eldPlatContext.SaveChanges();
 
             return result;

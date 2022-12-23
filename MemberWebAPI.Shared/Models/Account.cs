@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MemberWebAPI.Shared.Models
 {
     public partial class Account
     {
         public int No { get; set; }
+
+        [Key]
         public string UserNo { get; set; } = null!;
         public string UserId { get; set; } = null!;
         public string UserName { get; set; } = null!;
